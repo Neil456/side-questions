@@ -1,0 +1,288 @@
+::highlight(mg-thread) {
+  background-color: rgba(250, 204, 21, 0.28);
+}
+::highlight(mg-active) {
+  background-color: rgba(250, 204, 21, 0.6);
+}
+html.dark::highlight(mg-thread) {
+  background-color: rgba(250, 204, 21, 0.16);
+}
+html.dark::highlight(mg-active) {
+  background-color: rgba(250, 204, 21, 0.34);
+}
+
+#mg-root {
+  --mg-bg: #ffffff;
+  --mg-fg: #0d0d0d;
+  --mg-muted: #6e6e80;
+  --mg-border: rgba(13, 13, 13, 0.1);
+  --mg-soft: #f3f3f3;
+  --mg-accent: #e5a800;
+  --mg-danger: #c4314b;
+  --mg-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--mg-fg);
+  font: 14px/1.5 ui-sans-serif, -apple-system, system-ui, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+html.dark #mg-root {
+  --mg-bg: #2a2a2a;
+  --mg-fg: #ececec;
+  --mg-muted: #a3a3ad;
+  --mg-border: rgba(255, 255, 255, 0.1);
+  --mg-soft: #383838;
+  --mg-accent: #f5c542;
+  --mg-danger: #ff7a8a;
+  --mg-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+#mg-root button,
+#mg-root .mg-icon {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+/* After the reset above, so the margin elements stay positioned. */
+#mg-root > div,
+#mg-root > button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: auto;
+  box-sizing: border-box;
+}
+
+/* Ask button under a selection */
+#mg-root .mg-ask {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px 0 10px;
+  border-radius: 15px;
+  background: #0d0d0d;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: var(--mg-shadow);
+}
+html.dark #mg-root .mg-ask {
+  background: #f4f4f4;
+  color: #0d0d0d;
+}
+#mg-root .mg-pill-icon {
+  display: grid;
+  place-items: center;
+}
+#mg-root .mg-pill-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Card */
+.mg-card {
+  display: flex;
+  flex-direction: column;
+  max-height: min(72vh, 640px);
+  background: var(--mg-bg);
+  border: 1px solid var(--mg-border);
+  border-left: 3px solid var(--mg-accent);
+  border-radius: 12px;
+  box-shadow: var(--mg-shadow);
+  overflow: hidden;
+}
+.mg-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 8px 8px 14px;
+  border-bottom: 1px solid var(--mg-border);
+}
+.mg-quote {
+  flex: 1;
+  min-width: 0;
+  padding-top: 3px;
+  color: var(--mg-muted);
+  font-size: 12.5px;
+  font-style: italic;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.mg-tools {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+#mg-root .mg-icon {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  color: var(--mg-muted);
+}
+#mg-root .mg-icon:hover {
+  background: var(--mg-soft);
+  color: var(--mg-fg);
+}
+#mg-root .mg-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.mg-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.mg-body:empty {
+  display: none;
+}
+.mg-q {
+  align-self: flex-end;
+  max-width: 88%;
+  padding: 6px 12px;
+  border-radius: 16px;
+  background: var(--mg-soft);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+#mg-root .mg-a {
+  max-width: none;
+  font-size: 14px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+#mg-root .mg-a > :first-child {
+  margin-top: 0;
+}
+#mg-root .mg-a > :last-child {
+  margin-bottom: 0;
+}
+#mg-root .mg-a pre {
+  overflow-x: auto;
+  font-size: 12.5px;
+}
+.mg-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--mg-muted);
+  font-size: 13px;
+}
+.mg-spinner {
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--mg-border);
+  border-top-color: var(--mg-accent);
+  border-radius: 50%;
+  animation: mg-spin 0.8s linear infinite;
+}
+@keyframes mg-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.mg-error {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  color: var(--mg-danger);
+  font-size: 13px;
+}
+#mg-root .mg-retry {
+  flex-shrink: 0;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.mg-foot {
+  padding: 8px 10px 10px;
+  border-top: 1px solid var(--mg-border);
+}
+.mg-body:empty + .mg-foot {
+  border-top: 0;
+}
+#mg-root .mg-input {
+  all: unset;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-height: 36px;
+  max-height: 140px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--mg-soft);
+  color: var(--mg-fg);
+  font: inherit;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  overflow-y: auto;
+}
+#mg-root .mg-input::placeholder {
+  color: var(--mg-muted);
+}
+#mg-root .mg-input:disabled {
+  opacity: 0.55;
+}
+
+/* Collapsed thread marker in the margin */
+#mg-root .mg-pill {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 26px;
+  padding: 0 8px;
+  border-radius: 13px;
+  background: var(--mg-bg);
+  border: 1px solid var(--mg-border);
+  box-shadow: var(--mg-shadow);
+  color: var(--mg-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+#mg-root .mg-pill:hover {
+  color: var(--mg-fg);
+}
+#mg-root .mg-pill.mg-unread::after,
+#mg-root .mg-pill.mg-busy::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--mg-accent);
+}
+#mg-root .mg-pill.mg-busy::after {
+  animation: mg-pulse 1s ease-in-out infinite;
+}
+@keyframes mg-pulse {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* Helper tab */
+#mg-worker-banner {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2147483647;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #0d0d0d;
+  color: #fff;
+  font: 600 12px/1.4 ui-sans-serif, system-ui, sans-serif;
+  opacity: 0.92;
+  pointer-events: none;
+}

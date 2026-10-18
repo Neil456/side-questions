@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ChatGPT (test double)</title>
+    <link rel="stylesheet" href="/__mock/mock.css" />
+  </head>
+  <body>
+    <div id="app">
+      <aside id="sidebar"><div class="brand">Test double</div><nav id="history"></nav></aside>
+      <main>
+        <div id="scroll"><div id="thread"></div></div>
+        <div id="composer-wrap">
+          <form id="composer" onsubmit="return false">
+            <div id="prompt-textarea" class="ProseMirror" contenteditable="true"></div>
+            <button type="button" id="send" data-testid="send-button" aria-label="Send prompt" disabled>↑</button>
+          </form>
+        </div>
+      </main>
+    </div>
+    <script src="/__mock/mock.js"></script>
+  </body>
+</html>

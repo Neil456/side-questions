@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Marginalia settings</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --fg: #0d0d0d;
+        --muted: #6e6e80;
+        --bg: #ffffff;
+        --border: rgba(13, 13, 13, 0.12);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --fg: #ececec;
+          --muted: #a3a3ad;
+          --bg: #212121;
+          --border: rgba(255, 255, 255, 0.12);
+        }
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+      }
+      main {
+        max-width: 560px;
+        margin: 48px auto;
+        padding: 0 16px;
+      }
+      h1 {
+        font-size: 22px;
+        margin: 0 0 4px;
+      }
+      p.lede {
+        color: var(--muted);
+        margin: 0 0 28px;
+      }
+      fieldset {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 14px 18px 16px;
+        margin: 0 0 18px;
+      }
+      legend {
+        font-weight: 600;
+        padding: 0 6px;
+      }
+      label {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        margin-top: 10px;
+      }
+      label input {
+        margin-top: 4px;
+      }
+      small {
+        display: block;
+        color: var(--muted);
+      }
+      button {
+        font: inherit;
+        padding: 8px 14px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+      }
+      #saved {
+        color: var(--muted);
+        margin-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Marginalia</h1>
+      <p class="lede">Highlight text in ChatGPT and click <b>Ask</b> to start a side thread in the margin.</p>
+
+      <fieldset>
+        <legend>New side threads</legend>
+        <label>
+          <input type="radio" name="mode" value="branch" />
+          <span>Branch the conversation<small>Uses ChatGPT’s “Branch in new chat”, so the side thread sees the whole conversation, including uploaded files.</small></span>
+        </label>
+        <label>
+          <input type="radio" name="mode" value="fresh" />
+          <span>New chat with a transcript<small>Pastes the conversation’s text into a new chat. Faster, but files and images aren’t included.</small></span>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Cleanup</legend>
+        <label>
+          <input type="checkbox" id="deleteBranchChats" />
+          <span>Delete the side thread’s chat from ChatGPT when I delete the side thread<small>Otherwise those chats stay in your ChatGPT history.</small></span>
+        </label>
+      </fieldset>
+
+      <button id="clear">Forget all saved side threads</button><span id="saved"></span>
+    </main>
+    <script src="options.js"></script>
+  </body>
+</html>

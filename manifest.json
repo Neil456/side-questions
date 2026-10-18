@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Marginalia for ChatGPT",
+  "version": "0.1.0",
+  "description": "Highlight any part of a ChatGPT conversation and ask a side question in the margin, without losing your place.",
+  "minimum_chrome_version": "111",
+  "permissions": ["storage", "unlimitedStorage"],
+  "host_permissions": ["https://chatgpt.com/*"],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "js": [
+        "src/content/chatgpt.js",
+        "src/content/anchor.js",
+        "src/content/worker.js",
+        "src/content/reader.js",
+        "src/content/main.js"
+      ],
+      "css": ["src/content/styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "Marginalia settings"
+  },
+  "options_page": "src/options/options.html"
+}
